@@ -8,7 +8,7 @@ usersRouter.post('/login', loginValidator, loginController);
  * Description: Register a new user
  * METHOD: POST
  * Path: /register
- * Body: {name: string, email: string, password: string, confirm_password: string, day_of_birth: ISO8601}
+ * Body: {name: string, email: string, password: string, confirm_password: string, date_of_birth: ISO8601}
  */
 usersRouter.post('/register', registerValidator, registerController);
 

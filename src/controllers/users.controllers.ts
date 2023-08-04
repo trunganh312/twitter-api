@@ -24,7 +24,7 @@ export const registerController = async (
       result,
     });
   } catch (error) {
-    return res.status(401).json({
+    return res.status(400).json({
       message: 'Register failed',
     });
   }
