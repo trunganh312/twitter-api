@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { UserVerifyStatus } from '~/constants/enums';
 
-interface UserType {
+export interface UserType {
   _id?: ObjectId;
   name: string;
   email: string;

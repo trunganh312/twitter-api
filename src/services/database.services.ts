@@ -1,14 +1,18 @@
 import { MongoClient, Db, Collection } from 'mongodb';
 import { config } from 'dotenv';
 import User from '~/models/schemas/User.schema';
+import { envConfig } from '~/constants/config';
+import { RefreshToken } from '~/models/schemas/RefreshToken.schema';
+import { ApiKey } from '~/models/schemas/ApiKey.schema';
+import { Follower } from '~/models/schemas/Follower.schema';
 config();
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@twitter.sr2jkfm.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${envConfig.dbUsername}:${envConfig.dbPassword}@twitter.sr2jkfm.mongodb.net/?retryWrites=true&w=majority&appName=Twitter`;
 class DatabaseService {
   private client: MongoClient;
   private db: Db;
   constructor() {
     this.client = new MongoClient(uri);
-    this.db = this.client.db(process.env.DB_NAME);
+    this.db = this.client.db(envConfig.dbName);
   }
   async connect() {
     try {
@@ -21,7 +25,19 @@ class DatabaseService {
   }
 
   get users(): Collection<User> {
-    return this.db.collection(process.env.DB_COLLECTION_USERS as string);
+    return this.db.collection(envConfig.dbUsersCollection);
+  }
+
+  get refreshTokens(): Collection<RefreshToken> {
+    return this.db.collection(envConfig.dbRefreshTokensCollection);
+  }
+
+  get follower(): Collection<Follower> {
+    return this.db.collection(envConfig.dbFollowersCollection);
+  }
+
+  get apiKeys(): Collection<ApiKey> {
+    return this.db.collection(envConfig.dbApiKeyCollection);
   }
 }
 
