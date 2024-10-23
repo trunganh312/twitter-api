@@ -4,8 +4,9 @@ import fs from 'fs';
 import path from 'path';
 import { isEmptyObject } from './utils';
 import { UPLOAD_IMAGE_TEMP_DIR, UPLOAD_VIDEO_DIR, UPLOAD_VIDEO_TEMP_DIR } from '~/constants/dir';
+
 export const initFolder = () => {
-  const uploadFolderPath = path.resolve(UPLOAD_IMAGE_TEMP_DIR);
+  // const uploadFolderPath = path.resolve(UPLOAD_IMAGE_TEMP_DIR);
   [UPLOAD_IMAGE_TEMP_DIR, UPLOAD_VIDEO_TEMP_DIR].forEach((file) => {
     if (!fs.existsSync(file)) {
       fs.mkdirSync(file, {
@@ -44,9 +45,13 @@ export const handleUploadImage = (req: Request) => {
   });
 };
 
-export const handleUploadVideo = (req: Request) => {
+export const handleUploadVideo = async (req: Request) => {
+  const { nanoid } = await import('nanoid');
+  const idName = nanoid();
+  const folderUploadVideo = path.resolve(UPLOAD_VIDEO_DIR, idName);
+  await fs.mkdirSync(folderUploadVideo);
   const form = formidable({
-    uploadDir: path.resolve(UPLOAD_VIDEO_DIR),
+    uploadDir: folderUploadVideo,
     keepExtensions: true,
     maxFileSize: 50 * 1024 * 1024, // 50MB
     multiples: false,
@@ -59,6 +64,9 @@ export const handleUploadVideo = (req: Request) => {
       }
 
       return valid;
+    },
+    filename: (name, ext) => {
+      return `${idName}${ext}`;
     },
   });
   return new Promise<File[]>((resolve, reject) => {

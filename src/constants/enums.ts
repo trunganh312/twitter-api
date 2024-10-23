@@ -16,7 +16,10 @@ export enum MediaType {
   Video,
   HLS,
 }
-
+export interface Media {
+  url: string;
+  type: MediaType; // video, image
+}
 export enum MediaTypeQuery {
   Image = 'image',
   Video = 'video',

@@ -10,7 +10,7 @@ import { USERS_MESSAGES } from '~/constants/messages';
 import { REGEX_USERNAME } from '~/constants/regex';
 import { TokenPayload } from '~/models/requests/User.requests';
 import databaseService from '~/services/database.services';
-import userService from '~/services/users.services';
+import userService from '~/services/user.services';
 import { hashPassword } from '~/utils/crypto';
 import { ErrorWithStatus } from '~/utils/error';
 import { verifyToken } from '~/utils/jwt';
@@ -536,3 +536,36 @@ export const changePasswordValidator = validate(
     ['body']
   )
 );
+
+export const isUserLoggedInValidator = (
+  middleware: (req: Request, res: Response, next: NextFunction) => void
+) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (req.headers.authorization) {
+      return middleware(req, res, next);
+    }
+    next();
+  };
+};
+
+export const getConversationsValidator = validate(
+  checkSchema(
+    {
+      receiver_id: userIdSchema
+    },
+    ['params']
+  )
+)
+
+export const verifiedUserValidator = (req: Request, res: Response, next: NextFunction) => {
+  const { verify } = req.decoded_authorization as TokenPayload
+  if (verify !== UserVerifyStatus.Verified) {
+    return next(
+      new ErrorWithStatus({
+        message: USERS_MESSAGES.USER_NOT_VERIFIED,
+        status: HTTP_STATUS.FORBIDDEN
+      })
+    )
+  }
+  next()
+}

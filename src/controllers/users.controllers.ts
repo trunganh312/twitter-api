@@ -19,7 +19,7 @@ import {
   unFollowUserReqParams,
 } from '~/models/requests/User.requests';
 import User from '~/models/schemas/User.schema';
-import userService from '~/services/users.services';
+import userService from '~/services/user.services';
 export const loginController = async (req: Request<ParamsDictionary, any, any>, res: Response) => {
   const { _id, verify } = req.user as User;
   const result = await userService.login({ user_id: _id?.toString() as string, verify });

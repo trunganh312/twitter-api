@@ -1,4 +1,3 @@
-import e from 'express';
 import express from 'express';
 import { ValidationChain, validationResult } from 'express-validator';
 import { RunnableValidationChains } from 'express-validator/src/middlewares/schema';

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  twitter:
+    image: trung/twitter:v0
+    ports:
+      - '9000:9000'
+    volumes:
+      - /d/hoc_tap_code/node/twitter-api/uploads:/app/uploads
