@@ -1,0 +1,20 @@
+stages:
+  - build
+
+variables:
+  DOCKER_IMAGE: trunganh312/twitter:v2
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+  before_script:
+    - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
+  script:
+    - echo "$TWITTER_ENV_PRODUCTION" > .env.production
+    - docker build --progress=plain -t $DOCKER_IMAGE .
+    - docker push $DOCKER_IMAGE
