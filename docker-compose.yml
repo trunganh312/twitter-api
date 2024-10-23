@@ -1,8 +1,8 @@
 version: '3'
 services:
   twitter:
-    image: trung/twitter:v0
+    image: trunganh312/twitter:v1
     ports:
-      - '9000:9000'
+      - '3000:3000'
     volumes:
       - /d/hoc_tap_code/node/twitter-api/uploads:/app/uploads
