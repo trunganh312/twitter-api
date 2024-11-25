@@ -9,6 +9,7 @@
 ## Những API này nằm ở đâu trong flow twitter
 
 - Post bài viết
+
 - Cập nhật avatar, banner
 
 ## Hướng phát triển tiếp theo
