@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Token và Chat ID
 BOT_TOKEN="7940588459:AAHMJG21fOgfd9h8QcpZnNg2_thd33MFFc8" 
 CHAT_ID="-4531872882"     
