@@ -94,19 +94,19 @@ module.exports = {
       script: 'node dist/index.js',
       env: {
         NODE_ENV: 'development', // Riêng NODE_ENV thì có thể dùng process.env.NODE_ENV hoặc process.NODE_ENV, còn lại thì chỉ được dùng process.env.TEN_BIEN
-        TEN_BIEN: 'Gia tri'
+        TEN_BIEN: 'Gia tri',
       },
       env_production: {
-        NODE_ENV: 'production'
-      }
-    }
-  ]
-}
+        NODE_ENV: 'production',
+      },
+    },
+  ],
+};
 ```
 
 Chạy app bằng file cấu hình
 
-Mặc định câu lệnh dưới đây sẽ dùng `env` trong file cấu hình
+Mặc định câu lệnh dưới đây sẽ dùng `env` trong file cấu hình hehee
 
 ```bash
 pm2 start ecosystem.config.js
