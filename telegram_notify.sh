@@ -8,6 +8,7 @@ MESSAGE="$1"
 # Đảm bảo rằng nội dung thông báo được mã hóa đúng UTF-8
 ENCODED_MESSAGE=$(echo "$MESSAGE" | iconv -f utf-8 -t utf-8//IGNORE)
 
+
 # Gửi thông báo qua Telegram với mã hóa UTF-8
 curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
   --data-urlencode "chat_id=${CHAT_ID}" \
