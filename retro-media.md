@@ -8,8 +8,7 @@
 
 ## Những API này nằm ở đâu trong flow twitter
 
-- Post bài viết
-
+- Post bài viết test
 - Cập nhật avatar, banner
 
 ## Hướng phát triển tiếp theo
