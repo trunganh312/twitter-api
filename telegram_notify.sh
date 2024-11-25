@@ -13,5 +13,6 @@ curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
   -d chat_id="${CHAT_ID}" \
   -d parse_mode="Markdown" \
   -d text="${ENCODED_MESSAGE}"
+  
 
 echo "Message sent successfully!"
