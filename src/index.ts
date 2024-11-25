@@ -75,7 +75,6 @@ const corsOptions: CorsOptions = {
   origin: isProduction ? envConfig.clientUrl : '*',
 };
 app.use(cors(corsOptions));
-
 const port = envConfig.port;
 
 // Tạo folder upload
