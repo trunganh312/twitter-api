@@ -6,7 +6,7 @@ CHAT_ID="-4531872882"
 MESSAGE="$1"  # Lấy thông báo từ tham số đầu vào
 
 # Đảm bảo rằng tin nhắn được mã hóa đúng UTF-8
-ENCODED_MESSAGE=$(echo "$MESSAGE" | jq -sRr @uri)
+ENCODED_MESSAGE=$(echo "$MESSAGE" | jq -sRr @uri) 
 
 # Gửi thông báo qua Telegram API với phương thức POST
 curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
