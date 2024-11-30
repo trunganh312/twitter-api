@@ -3,6 +3,8 @@ stages:
 
 variables:
   DOCKER_IMAGE: trunganh312/twitter:v2
+  DOCKER_BUILDKIT: 1
+  DOCKER_CLI_EXPERIMENTAL: enabled
 
 build:
   stage: build
@@ -12,9 +14,13 @@ build:
   variables:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
+    DOCKER_BUILD_ARGS: --cache-from $DOCKER_IMAGE
+  cache:
+    paths:
+      - .docker
   before_script:
     - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
   script:
     - echo "$TWITTER_ENV_PRODUCTION" > .env.production
-    - docker build --progress=plain -t $DOCKER_IMAGE .
+    - docker build --progress=plain --build-arg BUILDKIT_INLINE_CACHE=1 $DOCKER_BUILD_ARGS -t $DOCKER_IMAGE .
     - docker push $DOCKER_IMAGE
