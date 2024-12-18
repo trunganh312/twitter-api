@@ -34,4 +34,4 @@ jobs:
             docker pull trunganh312/twitter:v4
             docker stop twitter-clone
             docker rm twitter-clone
-            docker run -dp 3000:3000 --name twitter-clone -v ~/twitter-clone/uploads:/app/uploads trunganh312/twitter:v4
+            docker run -dp 3000:3000 --restart unless-stopped --name twitter-clone -v ~/twitter-clone/uploads:/app/uploads trunganh312/twitter:v4
