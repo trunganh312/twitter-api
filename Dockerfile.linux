@@ -1,0 +1,23 @@
+FROM node:20.8-alpine3.18
+
+# Đặt thư mục làm việc
+WORKDIR /app
+
+# Sao chép các tệp cấu hình và mã nguồn vào container
+COPY package.json package-lock.json tsconfig.json ecosystem.config.js .env.development ./
+COPY ./src ./src 
+COPY ./openapi ./openapi 
+
+# Thêm kho lưu trữ community và cài đặt ffmpeg
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.18/community" >> /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache ffmpeg bash python3 && \
+    npm install pm2 -g && \
+    npm install && \
+    npm run build
+
+# Mở cổng 9000
+EXPOSE 9000
+
+# Định nghĩa lệnh mặc định khi container khởi động
+CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
